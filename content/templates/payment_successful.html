@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Payment Successful - MyStore{% endblock %}
+
+{% block head_extra %}
+    <link rel="stylesheet" href="{% static 'css/success.css' %}">
+{% endblock %}
+
+{% block content %}
+<main class="success-page-container">
+    <div class="success-card">
+        <div class="success-checkmark">✓</div>
+        <h1>Payment Successful</h1>
+        <p>Thank you for your purchase! Your order has been confirmed and is now being processed.</p>
+        <a href="{% url 'home_page' %}" class="btn btn-primary">Continue Shopping</a>
+    </div>
+</main>
+{% endblock %}

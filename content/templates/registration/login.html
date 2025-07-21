@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Login to MyStore{% endblock %}
+
+{% block head_extra %}
+    <link rel="stylesheet" href="{% static 'css/auth.css' %}">
+{% endblock %}
+
+{% block content %}
+    <main class="auth-page"> {# This main class might need adjustment in auth.css #}
+        <div class="auth-container">
+            <h1>Login</h1>
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+            <p class="auth-link">Don't have an account? <a href="{% url 'register' %}">Register here</a></p>
+        </div>
+    </main>
+{% endblock %}
+
+{% block scripts_extra %}
+    {# No extra scripts needed here beyond base.html's script.js #}
+{% endblock %}

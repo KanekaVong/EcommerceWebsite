@@ -1,0 +1,158 @@
+/* static/css/payment.css */
+
+/* --- Main Page Layout --- */
+.payment-page .container {
+    max-width: 1200px;
+    margin: 3rem auto;
+}
+
+.payment-page .page-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.payment-page .page-header h1 {
+    font-size: 2.8rem;
+    margin-bottom: 0.5rem;
+}
+
+.payment-page .page-header p {
+    font-size: 1.1rem;
+    color: var(--secondary-color);
+}
+
+/* --- Two-Column Layout --- */
+.checkout-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr; /* Summary on left, form on right */
+    gap: 3rem;
+    align-items: flex-start;
+}
+
+/* --- Order Summary Section (Left Column) --- */
+.checkout-summary {
+    background-color: var(--surface-color);
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    box-shadow: var(--box-shadow);
+    position: sticky; /* Makes it stick while scrolling */
+    top: 100px; /* Adjust based on your header height */
+}
+
+.checkout-summary h2 {
+    font-size: 1.5rem;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+}
+
+.summary-item .item-name {
+    color: var(--secondary-color);
+}
+
+.summary-line.total-amount {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 2px solid var(--text-color);
+}
+
+
+/* --- Payment Form Section (Right Column) --- */
+.payment-form-section {
+    background-color: var(--surface-color);
+    border-radius: var(--border-radius);
+    padding: 2.5rem;
+    box-shadow: var(--box-shadow);
+}
+
+.payment-form-section h2 {
+    font-size: 1.5rem;
+    margin-top: 0;
+    margin-bottom: 2rem;
+}
+
+#payment-form .form-group {
+    margin-bottom: 1.5rem;
+}
+
+#payment-form label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+#payment-form input[type="text"],
+#payment-form textarea {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-family: var(--font-family);
+    font-size: 1rem;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#payment-form input:focus,
+#payment-form textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
+}
+
+.form-row {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.form-row .form-group {
+    flex: 1;
+}
+
+#payment-form .btn-primary {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.1rem;
+    margin-top: 1rem;
+}
+
+/* --- Payment Messages --- */
+.payment-message {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    border-radius: 8px;
+    font-weight: 500;
+}
+
+.payment-message.success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.payment-message.error {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 992px) {
+    .checkout-layout {
+        grid-template-columns: 1fr; /* Stack columns on smaller screens */
+    }
+
+    .checkout-summary {
+        position: static; /* Remove sticky positioning on mobile */
+    }
+}

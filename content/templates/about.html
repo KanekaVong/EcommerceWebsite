@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}About Us - MyStore{% endblock %}
+
+{% block head_extra %}
+    <link rel="stylesheet" href="{% static 'css/about.css' %}">
+{% endblock %}
+ 
+{% block content %}
+<style>
+    .about-hero {
+    background-image: url('/static/img/video-image-2.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 400px; /* Adjust height as needed */
+    color: white; /* Optional: adjust text color for visibility */
+}
+</style>
+        <main class="about-page">
+    <!-- Hero Section -->
+        <section class="about-hero">
+            <div class="container">
+                <h1>Connecting You with Quality</h1>
+                <p class="subtitle">MyStore was founded on a simple idea: to provide high-quality, curated products with a seamless shopping experience.</p>
+            </div>
+        </section>
+
+    <!-- Our Story Section -->
+    <section class="our-story">
+        <div class="container">
+            <div class="story-content">
+                <div class="story-text">
+                    <h2>Our Story</h2>
+                    <p>What started as a small passion project in a garage has grown into a thriving online destination for shoppers worldwide. We saw a gap in the market for products that are not only beautiful and functional but also built to last. Our journey has been driven by our commitment to quality and our relationship with our customers.</p>
+                    <p>Every item in our collection is hand-picked, tested, and approved by our dedicated team to ensure it meets our rigorous standards. We believe that every purchase is a statement of trust, and we work hard every day to earn and maintain that trust.</p>
+                </div>
+                <div class="story-image">
+                    <img src="{% static 'img\video-image-2.jpg' %}" alt="Our team working">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Team Section -->
+    <section class="our-team">
+        <div class="container">
+            <h2 class="section-title">Meet the Team</h2>
+            <div class="team-grid">
+                <!-- Team Member 1 -->
+                <div class="team-member-card">
+                    <img src="{% static 'img\1.jpg' %}" alt="Team Member 1" class="team-member-photo">
+                    <h3 class="member-name">Cheng Raksmey</h3>
+                </div>
+                <!-- Team Member 2 -->
+                <div class="team-member-card">
+                <img src="{% static 'img\7.jpg' %}" alt="Team Member 1" class="team-member-photo">                    
+                <h3 class="member-name">Vong Kaneka</h3>
+
+                </div>
+                <!-- Team Member 3 -->
+                <div class="team-member-card">
+                    <img src="{% static 'img\3.jpg' %}" alt="Team Member 3" class="team-member-photo">
+                    <h3 class="member-name">Thorn Chansophanit</h3>
+                </div>
+                 <!-- Team Member 4 -->
+                <div class="team-member-card">
+                    <img src="{% static 'img\4.jpg' %}" alt="Team Member 1" class="team-member-photo">
+                    <h3 class="member-name">Ty Seakheng</h3>
+                </div>
+                 <!-- Team Member 5 -->
+                <div class="team-member-card">
+                    <img src="{% static 'img\5.jpg' %}" alt="Team Member 1" class="team-member-photo">
+                    <h3 class="member-name">Treng PichPanha</h3>
+                </div>
+                 <!-- Team Member 6 -->
+                <div class="team-member-card">
+                    <img src="{% static 'img\6.jpg' %}" alt="Team Member 1" class="team-member-photo">
+                    <h3 class="member-name">Meach Sovanmengheng</h3>
+                </div>
+
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}

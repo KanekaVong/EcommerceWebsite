@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Order Details - Order #{{ order_id }}{% endblock %}
+
+{% block head_extra %}
+    <link rel="stylesheet" href="{% static 'css/order_details.css' %}">
+{% endblock %}
+
+{% block content %}
+    <main class="order-details-page">
+        <div class="container">
+            <header class="page-header">
+                <h1>Order Details <span id="orderIdDisplay">#{{ order_id }}</span></h1>
+                <p>Detailed information about your order.</p>
+            </header>
+
+            <div id="orderDetailsContainer" class="order-details-container">
+                <p class="loading-message">Loading order details...</p>
+            </div>
+            
+            <div class="back-link-container">
+                <a href="{% url 'sale_history_page' %}" class="btn btn-outline">Back to Order History</a>
+            </div>
+        </div>
+    </main>
+{% endblock %}
+
+{% block scripts_extra %}
+    <script>
+        // Pass the order_id from Django context to JavaScript
+        const ORDER_ID = { order_id }; 
+    </script>
+    <script src="{% static 'js/order_details.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,65 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Token Test</title>
+  <script>
+    // Get CSRF token from cookie
+    function getCookie(name) {
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+          const cookie = cookies[i].trim();
+          if (cookie.substring(0, name.length + 1) === (name + '=')) {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            break;
+          }
+        }
+      }
+      return cookieValue;
+    }
+    const csrftoken = getCookie('csrftoken');
+  </script>
+</head>
+<body>
+  <h1>Get API Token</h1>
+
+  <form onsubmit="sendLogin(event)">
+    {% csrf_token %}
+    <input type="text" id="username" placeholder="Username" required>
+    <input type="password" id="password" placeholder="Password" required>
+    <button type="submit">Get Token</button>
+  </form>
+
+  <p id="result"></p>
+
+  <script>
+    async function sendLogin(e) {
+      e.preventDefault();
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+
+      const res = await fetch("/api/auth/token/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRFToken": csrftoken // Include CSRF token in headers
+        },
+        body: JSON.stringify({ username, password }),
+      });
+
+      const resultText = document.getElementById("result");
+
+      if (res.ok) {
+        const data = await res.json();
+        resultText.textContent = `✅ Your token is: ${data.token}`;
+      } else {
+        const errorData = await res.json();
+        resultText.textContent = `❌ Error: ${errorData.detail || 'Login failed'}`;
+      }
+    }
+  </script>
+</body>
+</html>

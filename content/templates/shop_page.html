@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Shop - My E-Commerce Store{% endblock %}
+
+{% block content %}
+<div class="shop-container container">
+    <header class="shop-header">
+        <h1>Our Products</h1>
+        <p>Find the perfect item for you.</p>
+    </header>
+
+    <div class="shop-layout">
+        <!-- Sidebar with Filters -->
+        <aside class="shop-sidebar">
+            <h2>Filters</h2>
+            <div class="filter-group">
+                <h3>Categories</h3>
+                <ul class="filter-list" id="category-filter-list">
+                    <li class="loading-text">Loading categories...</li>
+                </ul>
+            </div>
+            <div class="filter-group">
+                <h3>Price Range</h3>
+                <div class="price-filter">
+                    <input type="range" id="price-slider" min="0" max="100" value="100" step="5">
+                    <span id="price-value">$100.00</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content with Product Grid -->
+        <section class="shop-content">
+            <div class="sort-bar">
+                <label for="sort-by">Sort By:</label>
+                <select id="sort-by">
+                    <option value="default">Default</option>
+                    <option value="price-asc">Price: Low to High</option>
+                    <option value="price-desc">Price: High to Low</option>
+                    <option value="name-asc">Name: A-Z</option>
+                    <option value="name-desc">Name: Z-A</option>
+                </select>
+            </div>
+
+            <div class="products-grid" id="product-list">
+                <p class="loading-text">Loading products...</p>
+            </div>
+        </section>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts_extra %}
+    <!-- JavaScript to handle shop filtering and product loading -->
+    <script src="{% static 'js/shop.js' %}"></script>
+{% endblock %}

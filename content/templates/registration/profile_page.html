@@ -1,0 +1,248 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}My Profile - MyStore{% endblock %}
+
+{% block head_extra %}
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+<main class="profile-page">
+    <div class="container">
+        <header class="page-header">
+            <h1>Welcome, {{ profile_data.firstname|default:user.username }}!</h1>
+            <p>Manage your profile information and view your order history.</p>
+        </header>
+
+        <div class="profile-layout">
+            <aside class="profile-sidebar">
+                <div class="details-card">
+                    <div class="profile-picture-wrapper">
+                        <img src="{% if profile_data.profile %}{{ profile_data.profile.url }}{% else %}{% static 'images/default_profile.png' %}{% endif %}" alt="Profile Picture" class="profile-picture">
+                    </div>
+                    
+                    <form method="post" action="{% url 'upload_profile_picture' %}" enctype="multipart/form-data" class="profile-upload-form" id="profilePictureUploadForm">
+                        {% csrf_token %}
+                        <button type="button" id="editProfilePicBtn" class="btn btn-primary" style="display: block; width: 100%; margin-bottom: 1rem;">Edit Profile Picture</button>
+
+                        <div id="profilePicUploadControls" style="display: none;">
+                            <input type="file" name="profile_picture" id="profile_picture" accept="image/*" style="display: none;">
+                            <label for="profile_picture" class="btn btn-secondary" style="display: block; text-align: center; margin-bottom: 1rem; cursor: pointer;">Upload New Picture</label>
+                            <button type="submit" class="btn btn-success" style="display: block; width: 100%;">Save Picture</button>
+                        </div>
+                    </form>
+
+                    <h2>Your Details</h2>
+                    <form id="profileDetailsForm" method="post" action="{% url 'update_profile_details' %}">
+                        {% csrf_token %}
+                        <div class="detail-item">
+                            <span class="detail-label">Username:</span>
+                            <span class="detail-value" id="usernameDisplay">{{ user.username }}</span>
+                            <input type="text" name="username" id="usernameInput" value="{{ user.username }}" class="detail-input" style="display: none;">
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Email:</span>
+                            <span class="detail-value" id="emailDisplay">{{ profile_data.email }}</span>
+                            <input type="email" name="email" id="emailInput" value="{{ profile_data.email }}" class="detail-input" style="display: none;">
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">First Name:</span>
+                            <span class="detail-value" id="firstnameDisplay">{{ profile_data.firstname|default:'Not set' }}</span>
+                            <input type="text" name="firstname" id="firstnameInput" value="{{ profile_data.firstname|default:'' }}" class="detail-input" style="display: none;">
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Last Name:</span>
+                            <span class="detail-value" id="lastnameDisplay">{{ profile_data.lastname|default:'Not set' }}</span>
+                            <input type="text" name="lastname" id="lastnameInput" value="{{ profile_data.lastname|default:'' }}" class="detail-input" style="display: none;">
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Date Joined:</span>
+                            <span class="detail-value">{{ user.date_joined|date:"F j, Y" }}</span>
+                        </div>
+
+                        <div class="profile-actions-details">
+                            <button type="button" id="editDetailsBtn" class="btn btn-primary" style="display: block; width: 100%; margin-top: 1rem;">Edit Details</button>
+                            <div id="detailsEditControls" style="display: none; margin-top: 1rem;">
+                                <button type="submit" class="btn btn-success" style="display: block; width: 100%; margin-bottom: 0.5rem;">Save Changes</button>
+                                <button type="button" id="cancelEditDetailsBtn" class="btn btn-secondary" style="display: block; width: 100%;">Cancel</button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <div class="profile-actions" style="margin-top: 2rem;">
+                        <a href="{% url 'cart_page' %}" class="btn btn-primary">Go to Cart</a>
+                        <a href="{% url 'logout' %}" class="btn btn-secondary">Logout</a>
+                    </div>
+                </div>
+            </aside>
+
+            <section class="recent-orders">
+                <h2>Recent Orders</h2>
+                {% if orders %}
+                    <div class="orders-list">
+                        {% for order in orders %}
+                        <div class="order-summary-card">
+                            <div class="order-summary-header">
+                                <h3>Order #{{ order.id }}</h3>
+                                <span class="order-summary-date">{{ order.created_at|date:"F j, Y" }}</span>
+                            </div>
+                            <div class="order-summary-body">
+                                <p><strong>Total:</strong> ${{ order.total_amount }}</p>
+                                <p><strong>Status:</strong> <span class="order-status {{ order.status }}">{{ order.get_status_display }}</span></p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <a href="{% url 'sale_history_page' %}" class="btn btn-outline">View All Orders</a>
+                {% else %}
+                    <p class="no-orders-message">You have not placed any orders yet.</p>
+                {% endif %}
+            </section>
+        </div>
+    </div>
+</main>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // --- Profile Picture Edit Logic ---
+        const editProfilePicBtn = document.getElementById('editProfilePicBtn');
+        const profilePicUploadControls = document.getElementById('profilePicUploadControls');
+        const profilePictureUploadForm = document.getElementById('profilePictureUploadForm');
+        const profilePictureInput = document.getElementById('profile_picture');
+
+        function showProfilePicUploadMode() {
+            editProfilePicBtn.style.display = 'none';
+            profilePicUploadControls.style.display = 'block';
+        }
+
+        function hideProfilePicUploadMode() {
+            editProfilePicBtn.style.display = 'block';
+            profilePicUploadControls.style.display = 'none';
+            profilePictureInput.value = ''; // Clear the file input
+        }
+
+        editProfilePicBtn.addEventListener('click', showProfilePicUploadMode);
+
+        profilePictureUploadForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const formData = new FormData(this);
+
+            fetch(this.action, {
+                method: this.method,
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    const profilePicture = document.querySelector('.profile-picture');
+                    if (data.profile_url) {
+                        profilePicture.src = data.profile_url;
+                    }
+                    hideProfilePicUploadMode();
+                } else {
+                    alert("Error: " + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error uploading profile picture:', error);
+                alert('An error occurred during profile picture upload.');
+            });
+        });
+
+        // --- User Details Edit Logic ---
+        const editDetailsBtn = document.getElementById('editDetailsBtn');
+        const detailsEditControls = document.getElementById('detailsEditControls');
+        const cancelEditDetailsBtn = document.getElementById('cancelEditDetailsBtn');
+        const profileDetailsForm = document.getElementById('profileDetailsForm');
+
+        const usernameDisplay = document.getElementById('usernameDisplay');
+        const emailDisplay = document.getElementById('emailDisplay');
+        const firstnameDisplay = document.getElementById('firstnameDisplay');
+        const lastnameDisplay = document.getElementById('lastnameDisplay');
+
+        const usernameInput = document.getElementById('usernameInput');
+        const emailInput = document.getElementById('emailInput');
+        const firstnameInput = document.getElementById('firstnameInput');
+        const lastnameInput = document.getElementById('lastnameInput');
+
+        const detailDisplayElements = [usernameDisplay, emailDisplay, firstnameDisplay, lastnameDisplay];
+        const detailInputElements = [usernameInput, emailInput, firstnameInput, lastnameInput];
+        
+        // Store initial values to revert on cancel
+        let initialUsername = usernameInput.value;
+        let initialEmail = emailInput.value;
+        let initialFirstname = firstnameInput.value;
+        let initialLastname = lastnameInput.value;
+
+        function showDetailsEditMode() {
+            editDetailsBtn.style.display = 'none';
+            detailsEditControls.style.display = 'block';
+
+            detailDisplayElements.forEach(el => el.style.display = 'none');
+            detailInputElements.forEach(el => el.style.display = 'inline-block');
+        }
+
+        function hideDetailsEditMode() {
+            editDetailsBtn.style.display = 'block';
+            detailsEditControls.style.display = 'none';
+
+            detailDisplayElements.forEach(el => el.style.display = 'inline-block');
+            detailInputElements.forEach(el => el.style.display = 'none');
+        }
+
+        function revertDetails() {
+            usernameInput.value = initialUsername;
+            emailInput.value = initialEmail;
+            firstnameInput.value = initialFirstname;
+            lastnameInput.value = initialLastname;
+            hideDetailsEditMode();
+        }
+
+        editDetailsBtn.addEventListener('click', showDetailsEditMode);
+        cancelEditDetailsBtn.addEventListener('click', revertDetails);
+
+        profileDetailsForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const formData = new FormData(this);
+
+            fetch(this.action, {
+                method: this.method,
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Update displayed values
+                    usernameDisplay.textContent = data.username;
+                    emailDisplay.textContent = data.email;
+                    firstnameDisplay.textContent = data.firstname;
+                    lastnameDisplay.textContent = data.lastname;
+
+                    // Update initial values for future cancels
+                    initialUsername = data.username;
+                    initialEmail = data.email;
+                    initialFirstname = data.firstname;
+                    initialLastname = data.lastname;
+                    
+                    hideDetailsEditMode(); // Revert to display mode
+                } else {
+                    alert("Error updating profile details: " + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error updating profile details:', error);
+                alert('An error occurred during profile details update.');
+            });
+        });
+    });
+</script>
+{% endblock %}

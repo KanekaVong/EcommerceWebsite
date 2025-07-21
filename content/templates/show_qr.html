@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment QR Code</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/qr.css' %}">
+</head>
+<body>
+    <div class="container">
+        <header class="page-header">
+            <a href="{% url 'home_page' %}" class="back-button">←</a>
+            <h1>Select a Payment Method</h1>
+        </header>
+
+        <div class="content-wrapper">
+
+            <div class="left-column">
+                <p class="instruction-text">
+                    Choose a QR code from the list below to complete your payment.
+                </p>
+                
+                {% if qrs %}
+                <div class="custom-select-wrapper">
+                    <select id="qr-selector" class="qr-selector-dropdown">
+                        <option value="" disabled selected>Select a payment method...</option>
+
+                        {% for qr in qrs %}
+                        <option value="{% static qr.img_url %}" data-name="{{ qr.name }}">
+                            {{ qr.name }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                {% else %}
+                    <p>No QR codes are available.</p>
+                {% endif %}
+            </div>
+
+            <div class="right-column">
+                <div id="qr-display" class="hidden">
+                    <h2 id="display-text"></h2>
+                    <img id="display-image" src="" alt="Selected QR Code">
+                    <p class="final-instruction">Open your preferred payment app and scan the code.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script src="{% static 'js/qr.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Your Shopping Cart{% endblock %}
+
+{% block head_extra %}
+    <link rel="stylesheet" href="{% static 'css/cart.css' %}">
+{% endblock %}
+
+{% block content %}
+    <main class="cart-page"> {# This main class might need adjustment in cart.css #}
+        <div class="container">
+            <header class="page-header">
+                <h1>Your Shopping Cart</h1>
+                <p>Review your selected items before proceeding to checkout.</p>
+            </header>
+
+            <div id="cart-items-container" class="cart-items-container">
+                <p class="loading-message">Loading cart...</p>
+            </div>
+
+            <div class="cart-summary">
+                <div class="summary-line">
+                    <span>Total Items:</span>
+                    <span id="total-items">0</span>
+                </div>
+                <div class="summary-line total-amount">
+                    <span>Total Amount:</span>
+                    <span id="cart-total">$0.00</span>
+                </div>
+                <div class="cart-actions">
+                    <a href="{% url 'shop_page' %}" class="btn btn-secondary">Continue Shopping</a>
+                    
+                    <a href="{% url 'QR_code' %}" class="btn btn-outline">Pay with QR Code</a>
+                    
+                    <a href="{% url 'payment_page' %}" class="btn btn-primary">Pay with Card</a>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}
+{% block scripts_extra %}
+    <script src="{% static 'js/cart.js' %}"></script>
+{% endblock %}

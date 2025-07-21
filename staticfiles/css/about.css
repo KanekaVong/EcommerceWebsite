@@ -1,0 +1,117 @@
+/* static/css/about.css */
+
+/* --- Hero Section --- */
+.about-hero {
+    background-color: var(--text-color);
+    color: var(--light-text-color);
+    text-align: center;
+    padding: 5rem 1rem;
+}
+
+.about-hero h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.about-hero .subtitle {
+    font-size: 1.25rem;
+    max-width: 700px;
+    margin: 0 auto;
+    opacity: 0.9;
+}
+
+/* --- Our Story Section --- */
+.our-story {
+    padding: 5rem 0;
+}
+
+.story-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+}
+
+.story-text h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.story-text p {
+    line-height: 1.8;
+    color: var(--secondary-color);
+    margin-bottom: 1rem;
+}
+
+.story-image img {
+    width: 100%;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+
+/* --- Our Team Section --- */
+.our-team {
+    background-color: var(--background-color);
+    padding: 5rem 0;
+}
+
+.our-team .section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+}
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.team-member-card {
+    background-color: var(--surface-color);
+    border-radius: var(--border-radius);
+    text-align: center;
+    padding: 2rem;
+    box-shadow: var(--box-shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.team-member-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+}
+
+.team-member-photo {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0 auto 1.5rem auto;
+    border: 5px solid var(--surface-color);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.member-name {
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+.member-role {
+    color: var(--primary-color);
+    font-weight: 500;
+    margin-top: 0.25rem;
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 992px) {
+    .story-content {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .about-hero h1 {
+        font-size: 2.5rem;
+    }
+}

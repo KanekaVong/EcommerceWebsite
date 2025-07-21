@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}MyStore {% endblock %}
+
+{% block content %}
+    <section class="hero-section">
+        <div class="hero-slideshow">
+            {% comment %} Define your slide images manually as separate variables {% endcomment %}
+            {% with image1="img/video-image-2.jpg" image2="img/bg-newsletter.jpg" image3="img/post-large-image1.jpg" %}
+                 
+            <div class="slide active">
+                 <div class="slide-content">
+                        <a href="{% url 'shop_page' %}" class="btn btn-primary">Shop Now</a>
+                    </div>
+                    <div class="slide-image">
+                        <img src="{% static image1 %}" alt="Slide 1">
+                    </div>
+                </div>
+                <div class="slide">
+                    <div class="slide-content">
+                        <a href="{% url 'shop_page' %}" class="btn btn-primary">Shop Now</a>
+                    </div>
+                    <div class="slide-image">
+                        <img src="{% static image2 %}" alt="Slide 2">
+                    </div>
+                </div>
+                <div class="slide">
+                    <div class="slide-content">
+                        <a href="{% url 'shop_page' %}" class="btn btn-primary">Shop Now</a>
+                    </div>
+                    <div class="slide-image">
+                        <img src="{% static image3 %}" alt="Slide 3">
+                    </div>
+                </div>
+            {% endwith %}
+        </div>
+    </section>
+
+    <section class="products-section">
+        <div class="container">
+            <h2 class="section-title">Featured Products</h2>
+            <div class="products-grid">
+                {% if products %}
+                    {% for product in products %}
+                        <div class="product-card" data-id="{{ product.id }}" data-name="{{ product.name }}" data-price="{{ product.price }}">
+                            <a href="{% url 'product_detail_page' pk=product.pk %}">
+                                <div class="product-image">
+                                    <img src="{% if product.image %}{% static product.image %}{% else %}https://placehold.co/400x400/E8E8E8/4A4A4A?text=No+Image{% endif %}" alt="{{ product.name }}">
+                                </div>
+                            </a>
+                            <div class="product-info">
+                                <a href="{% url 'product_detail_page' pk=product.pk %}">
+                                    <h3>{{ product.name }}</h3>
+                                </a>
+                                <p class="price">${{ product.price }}</p>
+                                <div class="product-buttons">
+                                    <button class="btn btn-primary js-add-to-cart">Add to Cart</button>
+                                    <button class="btn btn-secondary js-remove-from-cart">Remove</button>
+                                </div>
+                                <span class="product-cart-quantity" data-product-id="{{ product.id }}">0</span>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p>No featured products available at the moment.</p>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block scripts_extra %}
+{% endblock %}

@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}My E-Commerce Store{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    {% block head_extra %}{% endblock %}
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="container">
+            <a href="{% url 'home_page' %}" class="logo">MyStore</a>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="{% url 'home_page' %}" {% if request.resolver_match.url_name == 'home_page' %}class="active"{% endif %}>Home</a></li>
+                    <li><a href="{% url 'shop_page' %}" {% if request.resolver_match.url_name == 'shop_page' %}class="active"{% endif %}>Shop</a></li>                    
+                    <li><a href="{% url 'about_page' %}" {% if request.resolver_match.url_name == 'about_page' %}class="active"{% endif %}>About</a></li>
+                    <li><a href="{% url 'contact_page' %}">Contact</a></li>
+                    <li><a href="{% url 'blog_page' %}">Blog</a></li>
+
+                    {% if user.is_authenticated %}
+                        <li><a href="{% url 'sale_history_page' %}">My Orders</a></li>
+                        <li><a href="{% url 'profile_page' %}">Profile ({{ user.username }})</a></li>
+                    {% else %}
+                        <li><a href="{% url 'login' %}">Login</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+            <a href="{% url 'cart_page' %}" class="cart-link {% if request.resolver_match.url_name == 'cart_page' %}active{% endif %}">
+                <span class="cart-icon">
+                    <img src="{% static 'img/shopping-cart.png' %}" style="width: 15px; height: 15px;">
+                </span>
+                <span class="cart-text">Cart:</span>
+                <span id="cart-count" class="cart-count">0</span>
+            </a>
+        </div>
+    </header>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; {% now "Y" %} MyStore. All Rights Reserved.</p>
+                <ul class="footer-links">
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{% static 'js/script.js' %}"></script>
+
+    {% block scripts_extra %}{% endblock %}
+</body>
+</html>
