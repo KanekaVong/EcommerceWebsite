@@ -16,10 +16,6 @@ db.sqlite3
 # Log files
 *.log
 
-# Media and static files (generated or uploaded)
-media/
-static/
-
 # Virtual environments
 venv/
 ENV/
