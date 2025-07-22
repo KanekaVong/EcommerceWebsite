@@ -1,27 +1,26 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Your Sale History{% endblock %}
+{% block title %}Sale History{% endblock %}
 
 {% block head_extra %}
     <link rel="stylesheet" href="{% static 'css/sale_history.css' %}">
 {% endblock %}
 
 {% block content %}
-    <main class="sale-history-page"> {# This main class might need adjustment in sale_history.css #}
+    <main class="sale-history-page">
         <div class="container">
             <header class="page-header">
-                <h1>Your Order History</h1>
-                <p>Review your past purchases and track their status.</p>
+                <h1>Your Sale History</h1>
             </header>
 
             <div id="sale-history-container" class="sale-history-container">
-                <p class="loading-message">Loading sales history...</p>
+                <p class="loading-message">Loading your sale history...</p>
             </div>
         </div>
     </main>
 {% endblock %}
 
 {% block scripts_extra %}
-    <script src="{% static 'js/sale_history.js' %}" ></script>
+    <script src="{% static 'js/sale_history.js' %}"></script>
 {% endblock %}

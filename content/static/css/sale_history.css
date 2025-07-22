@@ -2,7 +2,7 @@
 
 /* --- Main Page Layout --- */
 .sale-history-page .container {
-    max-width: 2000px; /* Wider container for a grid layout */
+    max-width: 900px;
     margin: 3rem auto;
 }
 
@@ -21,28 +21,19 @@
     color: var(--secondary-color);
 }
 
-/* --- Order Grid Layout --- */
+/* --- Order Card Styles --- */
 .sale-history-container {
-    display: grid;
-    /* Creates a responsive grid that fits as many columns as possible */
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    display: flex;
+    flex-direction: column;
     gap: 1.5rem;
 }
 
-/* --- Order Card Styles (Adjusted for Grid) --- */
 .order-card {
     background-color: var(--surface-color);
     border-radius: var(--border-radius);
     box-shadow: var(--box-shadow);
     border-left: 5px solid var(--primary-color);
-    display: flex;
-    flex-direction: column; /* Ensures footer stays at the bottom */
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.order-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    overflow: hidden;
 }
 
 .order-header {
@@ -60,13 +51,12 @@
 }
 
 .order-date {
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     color: var(--secondary-color);
 }
 
 .order-body {
     padding: 1.5rem;
-    flex-grow: 1; /* Allows this section to take up available space */
 }
 
 .order-item {
@@ -74,7 +64,6 @@
     justify-content: space-between;
     padding: 0.75rem 0;
     border-bottom: 1px dashed var(--border-color);
-    font-size: 0.95rem;
 }
 
 .order-item:last-child {
@@ -87,8 +76,6 @@
 
 .item-details {
     color: var(--secondary-color);
-    white-space: nowrap; /* Prevents wrapping */
-    margin-left: 1rem;
 }
 
 .order-footer {
@@ -98,14 +85,13 @@
     padding: 1rem 1.5rem;
     background-color: var(--background-color);
     border-top: 1px solid var(--border-color);
-    margin-top: auto; /* Pushes footer to the bottom */
 }
 
 .order-status {
     font-weight: 700;
     padding: 0.4rem 0.8rem;
     border-radius: 20px;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     text-transform: capitalize;
 }
 
@@ -117,7 +103,7 @@
 
 
 .order-total {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     font-weight: 700;
 }
 
@@ -130,12 +116,4 @@
     background-color: var(--surface-color);
     border-radius: var(--border-radius);
     box-shadow: var(--box-shadow);
-    grid-column: 1 / -1; /* Makes the message span all columns */
-}
-
-/* On larger screens, specifically set to 4 columns */
-@media (min-width: 1400px) {
-    .sale-history-container {
-        grid-template-columns: repeat(4, 1fr);
-    }
 }

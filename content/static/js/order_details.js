@@ -1,3 +1,5 @@
+// static/js/order_details.js
+
 document.addEventListener('DOMContentLoaded', function() {
     const orderDetailsContainer = document.getElementById('orderDetailsContainer');
     const orderIdDisplay = document.getElementById('orderIdDisplay');
