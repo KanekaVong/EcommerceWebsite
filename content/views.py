@@ -528,9 +528,16 @@ class UpdateCartItemAPIView(APIView):
 # NEW: Page view for order details
 @login_required
 def order_details_page(request, order_id):
-    # This view simply renders the HTML template.
-    # The actual data fetching will be done by JavaScript on the client side.
+
+    try:
+        order = get_object_or_404(Order, id=order_id, user=request.user)
+    except Exception as e:
+        print(f"Error fetching order: {e}") # For debugging
+        return render(request, 'error_page.html', {'message': 'Order not found or you do not have permission to view it.'}, status=404)
+
+
     context = {
-        'order_id': order_id
+        'order_id': order.id, 
+        'order': order, 
     }
     return render(request, 'order_details.html', context)

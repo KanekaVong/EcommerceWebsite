@@ -119,7 +119,9 @@ document.addEventListener('DOMContentLoaded', function() {
             // Add click listener to navigate to order details page
             orderCard.style.cursor = 'pointer'; // Indicate clickable
             orderCard.addEventListener('click', () => {
-                window.location.href = `/order/${orderId}/details/`; // Navigate to the new order details page
+                // Corrected line: Use an f-string like syntax or template literal if your Django setup allows.
+                // Assuming your Django URL pattern for order details is something like 'path('order/<int:order_id>/details/', views.order_details_view, name='order_details_page')'
+                window.location.href = `/order/${order.id}/details/`; // Navigate to the new order details page
             });
 
             historyContainer.appendChild(orderCard);

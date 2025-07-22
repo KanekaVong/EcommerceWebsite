@@ -35,6 +35,19 @@
     flex-direction: column;
     gap: 1.5rem;
 }
+/* static/css/order_details.css */
+
+/* Hide the entire image wrapper if it exists */
+.order-detail-item-card .item-image-wrapper {
+    display: none !important; /* !important to override any other styles */
+    visibility: hidden !important;
+}
+
+/* Hide the image itself, just in case */
+.order-detail-item-card .item-image {
+    display: none !important;
+    visibility: hidden !important;
+}
 
 .order-header-details {
     display: flex;

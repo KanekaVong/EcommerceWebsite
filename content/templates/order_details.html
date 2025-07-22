@@ -29,7 +29,7 @@
 {% block scripts_extra %}
     <script>
         // Pass the order_id from Django context to JavaScript
-        const ORDER_ID = { order_id }; 
+        const ORDER_ID = {{ order_id }}; // Corrected: Directly embed the value
     </script>
     <script src="{% static 'js/order_details.js' %}"></script>
 {% endblock %}
