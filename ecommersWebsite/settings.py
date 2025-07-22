@@ -126,10 +126,12 @@ LOGIN_URL = '/login/'
 
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    BASE_DIR / "static", 
-]
 STATIC_ROOT = '/home/Kaneka235/EcommerceWebsite/staticfiles'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),  
+]
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 MEDIA_URL = '/media/'
