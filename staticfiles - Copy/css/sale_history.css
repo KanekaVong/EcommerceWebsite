@@ -1,0 +1,119 @@
+/* static/css/sale_history.css */
+
+/* --- Main Page Layout --- */
+.sale-history-page .container {
+    max-width: 900px;
+    margin: 3rem auto;
+}
+
+.sale-history-page .page-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.sale-history-page .page-header h1 {
+    font-size: 2.8rem;
+    margin-bottom: 0.5rem;
+}
+
+.sale-history-page .page-header p {
+    font-size: 1.1rem;
+    color: var(--secondary-color);
+}
+
+/* --- Order Card Styles --- */
+.sale-history-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.order-card {
+    background-color: var(--surface-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    border-left: 5px solid var(--primary-color);
+    overflow: hidden;
+}
+
+.order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    background-color: var(--background-color);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.order-header h3 {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+.order-date {
+    font-size: 0.9rem;
+    color: var(--secondary-color);
+}
+
+.order-body {
+    padding: 1.5rem;
+}
+
+.order-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.75rem 0;
+    border-bottom: 1px dashed var(--border-color);
+}
+
+.order-item:last-child {
+    border-bottom: none;
+}
+
+.item-name {
+    font-weight: 500;
+}
+
+.item-details {
+    color: var(--secondary-color);
+}
+
+.order-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    background-color: var(--background-color);
+    border-top: 1px solid var(--border-color);
+}
+
+.order-status {
+    font-weight: 700;
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    text-transform: capitalize;
+}
+
+/* Different colors for different statuses */
+.order-status.completed { background-color: #d4edda; color: #155724; }
+.order-status.pending { background-color: #fff3cd; color: #856404; }
+.order-status.cancelled { background-color: #f8d7da; color: #721c24; }
+.order-status.processing { background-color: #d1ecf1; color: #0c5460; }
+
+
+.order-total {
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+/* --- Message for empty history --- */
+.no-history-message {
+    text-align: center;
+    padding: 3rem;
+    font-size: 1.2rem;
+    color: var(--secondary-color);
+    background-color: var(--surface-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}

@@ -1,0 +1,134 @@
+/* static/css/product_detail.css */
+
+.product-detail-page .container {
+    max-width: 1400px;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+}
+
+.product-layout {
+    display: grid;
+    /* This gives the image a fixed width of 450px, 
+       and the '1fr' tells the right column to fill ALL remaining space. */
+    grid-template-columns: 450px 1fr; 
+    gap: 4rem; /* Increased the gap for better spacing */
+    background-color: var(--surface-color);
+    padding: 3rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+.product-gallery .main-product-image {
+    width: 100%;
+    border-radius: var(--border-radius);
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+}
+
+.product-card {
+    width: 100%;      
+}
+
+
+.product-info-details .product-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+    margin-left: 1rem;
+}
+
+.product-info-details .product-price {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    margin-left: 1rem;
+}
+
+.product-description {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    line-height: 1.7;
+    color: var(--secondary-color);
+    margin-left: 1rem;
+    max-width: 90%;
+     word-break: break-word;
+}
+
+/* Container for the buttons and the quantity counter */
+.cart-actions-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+/* A sub-container just for the buttons */
+.add-to-cart-section {
+    display: flex;
+    gap: 1rem;
+    margin-left: 1rem;
+}
+
+.add-to-cart-section .btn {
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    margin-left: 1rem;
+}
+
+.product-cart-quantity {
+    display: inline-block;
+    min-width: 30px;
+    padding: 6px 10px;
+    background-color: var(--secondary-color);
+    color: var(--light-text-color);
+    border-radius: 20px;
+    font-size: 1em;
+    font-weight: bold;
+    text-align: center;
+    margin-right: 1rem;
+}
+
+.product-meta {
+    border-top: 1px solid var(--border-color);
+    padding-top: 1.5rem;
+    color: var(--secondary-color);
+    margin-left: 1rem;
+}
+
+.product-meta p {
+    margin: 0.5rem 0;
+}
+
+.product-meta a {
+    color: var(--primary-color);
+    text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+    .product-layout {
+        /* Adjust for smaller desktop screens */
+        grid-template-columns: 350px 1fr;
+        gap: 3rem;
+    }
+}
+
+@media (max-width: 992px) {
+    .product-layout {
+        /* Stack to a single column on tablets */
+        grid-template-columns: 1fr;
+        padding: 2rem;
+        gap: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .product-info-details .product-title {
+        font-size: 2rem;
+    }
+    .product-info-details .product-price {
+        font-size: 1.75rem;
+    }
+}
