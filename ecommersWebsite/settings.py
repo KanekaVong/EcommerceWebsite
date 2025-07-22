@@ -124,16 +124,16 @@ LOGIN_URL = '/login/'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-
 STATIC_URL = '/static/'
-STATIC_ROOT = '/home/Kaneka235/EcommerceWebsite/staticfiles'
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),  
-]
+# Since you're serving static files directly from content/static/ via PythonAnywhere,
+# you don't need STATIC_ROOT or STATICFILES_DIRS
+# STATIC_ROOT = '/home/Kaneka235/EcommerceWebsite/staticfiles'
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'static'),  
+# ]
 
-BASE_DIR = Path(__file__).resolve().parent.parent
-
+# Media files
 MEDIA_URL = '/media/'
 MEDIA_ROOT = '/home/Kaneka235/EcommerceWebsite/media'
 
