@@ -80,9 +80,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
         sortedOrderIds.forEach(orderId => {
             const order = ordersGrouped[orderId];
-            const orderCard = document.createElement('div');
-            orderCard.classList.add('order-card');
+            // --- START CHANGE HERE ---
+            // Create an <a> tag instead of a <div> for the order card
+            const orderLink = document.createElement('a');
+            orderLink.classList.add('order-card'); // Apply your existing CSS class to the link
+            orderLink.href = `/order/${order.id}/details/`; // Set the direct link to the order details page
             
+            // Optional: Add styles to make it behave visually like a div
+            orderLink.style.textDecoration = 'none'; // Remove default underline for links
+            orderLink.style.color = 'inherit';       // Inherit text color
+            orderLink.style.display = 'block';       // Make it a block-level element to fill the card area
+            orderLink.style.cursor = 'pointer';      // Show pointer on hover
+
             const saleDate = new Date(order.sale_date);
             const formattedDate = saleDate.toLocaleDateString('en-US', {
                 year: 'numeric', month: 'long', day: 'numeric'
@@ -103,7 +112,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 itemsHtml += `<div class="order-item-more">...and ${order.items.length - 2} more items</div>`;
             }
 
-            orderCard.innerHTML = `
+            // Set the innerHTML for the <a> tag
+            orderLink.innerHTML = `
                 <div class="order-header">
                     <h3>Order #${orderId}</h3>
                     <span class="order-date">${formattedDate}</span>
@@ -116,15 +126,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     <span class="order-total">Total: $${order.total_amount.toFixed(2)}</span>
                 </div>
             `;
-            // Add click listener to navigate to order details page
-            orderCard.style.cursor = 'pointer'; // Indicate clickable
-            orderCard.addEventListener('click', () => {
-                // Corrected line: Use an f-string like syntax or template literal if your Django setup allows.
-                // Assuming your Django URL pattern for order details is something like 'path('order/<int:order_id>/details/', views.order_details_view, name='order_details_page')'
-                window.location.href = `/order/${order.id}/details/`; // Navigate to the new order details page
-            });
-
-            historyContainer.appendChild(orderCard);
+            
+            historyContainer.appendChild(orderLink); // Append the new <a> element
+            // --- END CHANGE HERE ---
         });
     }
 
